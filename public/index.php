@@ -1,15 +1,13 @@
 <?php
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = trim($_SERVER['REQUEST_URI'], '/');
 
-if ($uri === '/' || $uri === '/login') {
-    require_once "../app/controllers/LoginController.php";
-    $controller = new LoginController();
-    $controller->index();
+if ($uri === '' || $uri === 'login') {
+    require_once '../controllers/LoginController.php';
+    (new LoginController())->index();
 }
 
-if ($uri === '/login/verifier') {
-    require_once "../app/controllers/LoginController.php";
-    $controller = new LoginController();
-    $controller->verifier();
+if ($uri === 'technicien/dashboard') {
+    require_once '../controllers/TechnicienController.php';
+    (new TechnicienController())->dashboard();
 }
