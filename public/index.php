@@ -1,22 +1,15 @@
 <?php
-session_start();
 
-$controller = $_GET['controller'] ?? 'auth';
-$action = $_GET['action'] ?? 'login';
+$uri = $_SERVER['REQUEST_URI'];
 
-$controllerName = ucfirst($controller) . 'Controller';
-$controllerFile = "../app/controllers/" . $controllerName . ".php";
-
-if (!file_exists($controllerFile)) {
-    die("Contrôleur introuvable : $controllerName");
+if ($uri === '/' || $uri === '/login') {
+    require_once "../app/controllers/LoginController.php";
+    $controller = new LoginController();
+    $controller->index();
 }
 
-require $controllerFile;
-
-$ctrl = new $controllerName();
-
-if (!method_exists($ctrl, $action)) {
-    die("Action introuvable : $action");
+if ($uri === '/login/verifier') {
+    require_once "../app/controllers/LoginController.php";
+    $controller = new LoginController();
+    $controller->verifier();
 }
-
-$ctrl->$action();
