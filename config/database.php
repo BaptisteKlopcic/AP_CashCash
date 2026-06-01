@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'cashcash'; // le nom que tu as choisi
-$user = 'root';       // en local, souvent 'root'
-$pass = '';           // sous XAMPP/WAMP, souvent vide
+$dbname = 'cashcash'; 
+$user = 'root';       
+$pass = '';           
 
 try {
     $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
@@ -10,3 +10,8 @@ try {
 } catch (Exception $e) {
     die('Erreur : ' . $e->getMessage());
 }
+
+//liste du matériel loué
+$stmt = $pdo->prepare("SELECT * FROM Materiel WHERE Etat = 'LOUE'");
+$stmt->execute();
+$materiels = $stmt->fetchAll(PDO::FETCH_ASSOC);
